@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MyShellFlying : MonoBehaviour
 {
+    public GameObject explosionPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,12 @@ public class MyShellFlying : MonoBehaviour
 
     void OnTriggerEnter(Collider col) {
         if (col.tag != "Player") {
+            
+            var exposionObject = GameObject.Instantiate(explosionPrefab, transform.position, transform.rotation);
+            exposionObject.GetComponent<ParticleSystem>().Play();
+
             Destroy(gameObject);
+            Destroy(exposionObject, 2.0f);
         }
     }
 }
