@@ -26,14 +26,14 @@ public class MyTankMovement : MonoBehaviour
     }
 
     void Move() {
-        float v = Input.GetAxisRaw("Vertical1");
+        float v = Input.GetAxis("Vertical1");
         Vector3 offset = transform.forward * moveSpeed * Time.deltaTime * v;
 
         rigidbody.MovePosition(transform.position + offset);
     }
 
     void Turn() {
-        float h = Input.GetAxisRaw("Horizontal1");
+        float h = Input.GetAxis("Horizontal1");
         
         Vector3 currentRotation = transform.rotation.eulerAngles;
         currentRotation.y += turnSpeed * Time.deltaTime * h;
