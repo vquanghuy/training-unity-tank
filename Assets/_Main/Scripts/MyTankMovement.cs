@@ -7,17 +7,22 @@ public class MyTankMovement : MonoBehaviour
     public float moveSpeed = 5;
     public float turnSpeed = 40;
 
+    public AudioClip idleClip;
+    public AudioClip drivingClip;
+
     Rigidbody rigidbody;
+    AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        EngineAudio();
     }
 
     void FixedUpdate() {
@@ -39,5 +44,19 @@ public class MyTankMovement : MonoBehaviour
         currentRotation.y += turnSpeed * Time.deltaTime * h;
 
         rigidbody.MoveRotation(Quaternion.Euler(currentRotation));
+    }
+
+    void EngineAudio() {
+        if (Mathf.Abs(Input.GetAxis("Vertical1")) < 0.1f) {
+            if (audioSource.clip == drivingClip) {
+                audioSource.clip = idleClip;
+                audioSource.Play();
+            }
+        } else {
+            if (audioSource.clip == idleClip) {
+                audioSource.clip = drivingClip;
+                audioSource.Play();
+            }
+        }
     }
 }
